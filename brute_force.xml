@@ -1,0 +1,39 @@
+<!--brute force detection rules-->
+<!--Detects 5 failed attempts within 60 seconds from the same IP address, against the same domain name-->
+<group name="win_sec,failed_authentication,brute_force">
+ <rule id="100501" level="10" frequency="5" timeframe="60">
+    <if_matched_sid>60122</if_matched_sid>
+    <same_field>win.eventdata.targetDomainName</same_field>
+    <same_field>win.eventdata.ipAddress</same_field>
+    <description>Multiple failed Type $(win.eventdata.logonType) login attempts from $(win.eventdata.ipAddress).</description>
+    <group>suspicious_authentication</group>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+ </rule>
+  
+<!--Detects 5 failed attempts within 60 seconds from the different IP addresses, against the same domain name-->
+
+  <rule id="100502" level="10" frequency="5" timeframe="60">
+    <if_matched_sid>60122</if_matched_sid>
+    <same_field>win.eventdata.targetDomainName</same_field>
+    <different_field>win.eventdata.ipAddress</different_field>
+    <description>Multiple failed Type $(win.eventdata.logonType) login attempts from different IP addresses.</description>
+    <group>suspicious_authentication</group>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+  </rule>
+
+  <!--Detects successful login (logged as id 92652 in Wazuh) after suspicious chain of failed authentication attempts-->
+
+  <rule id="100600" level="10">
+    <if_group>suspicious_authentication</if_group>
+    <if_sid>92652</if_sid>
+    <description>Successful login after multiple failed attempts.</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+  </rule>
+
+</group>
