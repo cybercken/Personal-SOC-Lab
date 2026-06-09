@@ -1,5 +1,5 @@
 # **HOME SOC LAB**
-The goal of this project is to gain a deeper understanding of security analysis detection engineering, and incident response.
+The goal of this project is to gain a deeper understanding of security analysis, detection engineering, and incident response.
 
 Deployed the Wazuh SIEM on an Ubuntu VM to monitor a Windows endpoint to ingest security logs, implement custom detection rules, map them to the MITRE ATT&CK framework, simulate security scenarios and configure automated responses.
 
