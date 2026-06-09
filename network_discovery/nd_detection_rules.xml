@@ -1,0 +1,35 @@
+<!-- TCP-TShark -->
+<group name="tshark,tcp,network">
+  <rule id="100200" level="1">
+    <field name="protocols">TCP</field>
+    <field name="dst_ip">192.168.1.12</field>
+    <description>TShark TCP alert</description>
+  </rule>
+
+  <rule id="100210" level="12" frequency="100" timeframe="10">
+    <if_matched_sid>100200</if_matched_sid> 
+    <different_field>layers.tcp_dstport</different_field> 
+    <description>High volume SYN packets from same source IP $(srcip).</description>
+        <mitre>
+       <id>T1590</id>
+    </mitre></rule>
+</group>
+
+<!-- ICMP-TShark -->
+<group name="tshark,icmp,network">
+  <rule id="100220" level="1">
+    <field name="protocols">ICMP</field> 
+    <field name="dst_ip">192.168.1.12</field>
+    <description>TShark ICMP alert</description>
+  </rule>
+
+  <rule id="100230" level="12" frequency="50" timeframe="10">
+    <if_matched_sid>100220</if_matched_sid> 
+    <same_srcip />
+    <description>High volume ICMP packets from single source IP: $(srcip)</description>
+    <mitre>
+       <id>T1595</id>
+    </mitre>  
+    </rule>
+</group>
+
