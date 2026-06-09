@@ -1,1 +1,13 @@
+<decoder name="custom-tshark">
+  <prematch>icmp</prematch>
+  <parent>json</parent>
+  <regex>"frame_time":["(\S+ \S+ \S+ \S+ \S+)"],"_ws_col_protocol":["(\S+)"],"ip_src":["(\S+)"],"ip_dst":["(\S+)"],"icmp_type":["(\d)"]}}</regex>
+  <order>frame_time,protocols,srcip,dst_ip,icmp_type</order>
+</decoder>
 
+<decoder name="custom-tcp-tshark">
+  <prematch>tcp</prematch>
+  <parent>json</parent>
+  <regex>"frame_time":["(\S+ \S+ \S+ \S+ \S+)"],"_ws_col_protocol":["(\S+)"],"ip_src":["(\S+)"],"ip_dst":["(\S+)"],"tcp_srcport":["\S+"],"tcp_dstport":["\S+"]}}</regex>
+  <order>frame_time,protocols,srcip,dst_ip,srcport,dstport</order>
+</decoder>
